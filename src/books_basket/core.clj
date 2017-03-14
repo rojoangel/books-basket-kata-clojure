@@ -3,6 +3,9 @@
 (defn apply-discount [price discount]
   (float (* price (/ (- 100 discount) 100))))
 
+(defrecord Book [price genre])
+
+; book->price as multimethod - dispatched on book genre
 (defmulti book->price :genre)
 
 (defmethod book->price :fantasy [book genre-qty]
