@@ -56,4 +56,20 @@
                            {:price 10.00 :genre :travel}
                            {:price 10.00 :genre :travel}
                            {:price 10.00 :genre :other}]]
-               (price basket) => (float 34.00))))
+               (price basket) => (float 34.00)))
+       (fact "discounts can be combined"
+             (let [basket [{:price 10.00 :genre :other}
+                           {:price 10.00 :genre :fantasy}
+                           {:price 10.00 :genre :it}
+                           {:price 10.00 :genre :travel}]]
+               (price basket) => (float 37.00))
+             (let [basket [{:price 10.00 :genre :other}
+                           {:price 10.00 :genre :fantasy}
+                           {:price 10.00 :genre :it}
+                           {:price 10.00 :genre :it}
+                           {:price 10.00 :genre :it}
+                           {:price 10.00 :genre :travel}
+                           {:price 10.00 :genre :travel}
+                           {:price 10.00 :genre :travel}
+                           {:price 10.00 :genre :travel}]]
+               (price basket) => (float 63.00))))
