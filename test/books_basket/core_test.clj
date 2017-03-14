@@ -50,4 +50,10 @@
                            {:price 10.00 :genre :travel}
                            {:price 10.00 :genre :travel}
                            {:price 10.00 :genre :travel}]]
-               (price basket) => (float 24.00))))
+               (price basket) => (float 24.00))
+             (let [basket [{:price 10.00 :genre :travel}
+                           {:price 10.00 :genre :travel}
+                           {:price 10.00 :genre :travel}
+                           {:price 10.00 :genre :travel}
+                           {:price 10.00 :genre :other}]]
+               (price basket) => (float 34.00))))
