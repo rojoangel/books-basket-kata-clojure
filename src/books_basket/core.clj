@@ -4,16 +4,20 @@
   (float (* price (/ (- 100 discount) 100))))
 
 (defmulti book->price :genre)
+
 (defmethod book->price :fantasy [book genre-qty]
   (apply-discount (:price book) 20))
+
 (defmethod book->price :it [book genre-qty]
   (if (> genre-qty 2)
     (apply-discount (:price book) 30)
     (apply-discount (:price book) 10)))
+
 (defmethod book->price :travel [book genre-qty]
   (if (> genre-qty 3)
     (apply-discount (:price book) 40)
     (:price book)))
+
 (defmethod book->price :default [book genre-qty]
   (:price book))
 
