@@ -1,7 +1,7 @@
 (ns books-basket.core)
 
 (defn apply-discount [price discount]
-  (float (* price (/ (- 100 discount) 100))))
+  (* price (/ (- 100 discount) 100)))
 
 (defrecord Book [price genre])
 
@@ -24,12 +24,15 @@
 (defmethod book->price :default [book genre-qty]
   (:price book))
 
-; user=> (+ 20 9.99); That's weird and that's why add casts to float
+; This is weird and it's why round is used before returning the price
+; user=> (+ 20 9.99);
 ; 29.990000000000002
 
-(defn add [p1 p2]
-  (float (+ p1 p2)))
+(defn round
+  [d precision]
+  (let [factor (Math/pow 10 precision)]
+    (/ (Math/floor (* d factor)) factor)))
 
 (defn price [basket]
   (let [genre-freqs (frequencies (map :genre basket))]
-    (reduce add 0.00 (map #(book->price % (get genre-freqs (:genre %))) basket))))
+    (round (reduce + (map #(book->price % (get genre-freqs (:genre %))) basket)) 2)))
