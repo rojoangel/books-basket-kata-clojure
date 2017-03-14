@@ -3,10 +3,11 @@
 (defn apply-discount [price discount]
   (float (* price (/ (- 100 discount) 100))))
 
-(defn book->price [book]
-  (if (= :fantasy (:genre book))
-    (apply-discount (:price book) 20)
-    (:price book)))
+(defmulti book->price :genre)
+(defmethod book->price :fantasy [book]
+  (apply-discount (:price book) 20))
+(defmethod book->price :default [book]
+  (:price book))
 
 ; user=> (+ 20 9.99); That's weird and that's why add casts to float
 ; 29.990000000000002
