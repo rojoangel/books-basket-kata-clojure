@@ -37,4 +37,8 @@
 
 (defn price [basket]
   (let [genre-freqs (frequencies (map :genre basket))]
-    (round (reduce + (map #(book->price % (get genre-freqs (:genre %))) basket)) 2)))
+    (round
+      (->>  basket
+            (map #(book->price % (get genre-freqs (:genre %))))
+            (reduce +))
+      2)))
