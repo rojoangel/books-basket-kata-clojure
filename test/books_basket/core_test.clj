@@ -14,4 +14,7 @@
                      (price basket) => (float 29.99)))
              (fact "fantasy books get a 20% discount"
                    (let [basket [{:price 10.00 :genre :fantasy}]]
-                     (price basket) => (float 8.00)))))
+                     (price basket) => (float 8.00))
+                   (let [basket [{:price 99.99 :genre :romantic}
+                                 {:price 15.00 :genre :fantasy}]]
+                     (price basket) => (float 111.99)))))
