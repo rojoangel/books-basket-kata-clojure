@@ -32,4 +32,19 @@
                                  {:price 10.00 :genre :it}
                                  {:price 10.00 :genre :it}
                                  {:price 10.00 :genre :other}]]
-                     (price basket) => (float 31.00)))))
+                     (price basket) => (float 31.00)))
+             (fact "travel books get a 40% discount when there are more than three, no discount otherwise"
+                   (let [basket [{:price 10.00 :genre :travel}]]
+                     (price basket) => (float 10.00))
+                   (let [basket [{:price 10.00 :genre :travel}
+                                 {:price 10.00 :genre :travel}]]
+                     (price basket) => (float 20.00))
+                   (let [basket [{:price 10.00 :genre :travel}
+                                 {:price 10.00 :genre :travel}
+                                 {:price 10.00 :genre :travel}]]
+                     (price basket) => (float 30.00))
+                   (let [basket [{:price 10.00 :genre :travel}
+                                 {:price 10.00 :genre :travel}
+                                 {:price 10.00 :genre :travel}
+                                 {:price 10.00 :genre :travel}]]
+                     (price basket) => (float 24.00)))))
