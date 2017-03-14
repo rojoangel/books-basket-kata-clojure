@@ -1,9 +1,11 @@
 (ns books-basket.core)
 
+; encapsulates book instances
+; equivalent to use {:price 10.00 :genre :fantasy}
+(defrecord Book [price genre])
+
 (defn apply-discount [price discount]
   (* price (/ (- 100 discount) 100)))
-
-(defrecord Book [price genre])
 
 ; book->price as multimethod - dispatched on book genre
 (defmulti book->price :genre)
