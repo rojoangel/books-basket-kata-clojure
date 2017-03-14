@@ -1,11 +1,11 @@
 (ns books-basket.core)
 
-(defn apply-discount [price]
-  (float (* price 0.80)))
+(defn apply-discount [price discount]
+  (float (* price (/ (- 100 discount) 100))))
 
 (defn book->price [book]
   (if (= :fantasy (:genre book))
-    (apply-discount (:price book))
+    (apply-discount (:price book) 20)
     (:price book)))
 
 ; user=> (+ 20 9.99); That's weird and that's why add casts to float
