@@ -4,33 +4,33 @@
 ; equivalent to use {:price 10.00 :genre :fantasy}
 (defrecord Book [price genre])
 
-(defn apply-discount [price discount]
+(defn- apply-discount [price discount]
   (* price (/ (- 100 discount) 100)))
 
 ; book->price as multimethod - dispatched on book genre
-(defmulti book->price :genre)
+(defmulti ^:private book->price :genre)
 
-(defmethod book->price :fantasy [book genre-qty]
+(defmethod ^:private book->price :fantasy [book genre-qty]
   (apply-discount (:price book) 20))
 
-(defmethod book->price :it [book genre-qty]
+(defmethod ^:private book->price :it [book genre-qty]
   (if (> genre-qty 2)
     (apply-discount (:price book) 30)
     (apply-discount (:price book) 10)))
 
-(defmethod book->price :travel [book genre-qty]
+(defmethod ^:private book->price :travel [book genre-qty]
   (if (> genre-qty 3)
     (apply-discount (:price book) 40)
     (:price book)))
 
-(defmethod book->price :default [book genre-qty]
+(defmethod ^:private book->price :default [book genre-qty]
   (:price book))
 
 ; This is weird and it's why round is used before returning the price
 ; user=> (+ 20 9.99);
 ; 29.990000000000002
 
-(defn round
+(defn- round
   [d precision]
   (let [factor (Math/pow 10 precision)]
     (/ (Math/floor (* d factor)) factor)))
