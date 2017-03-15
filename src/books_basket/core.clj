@@ -29,7 +29,7 @@
 ; This is weird and it's why round is used before returning the price
 ; user=> (+ 20 9.99);
 ; 29.990000000000002
-
+; round function found here: http://clojure-doc.org/articles/language/functions.html#how-to-define-functions
 (defn- round
   [d precision]
   (let [factor (Math/pow 10 precision)]
